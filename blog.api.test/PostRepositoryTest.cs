@@ -241,7 +241,7 @@ namespace blog.api.test
 
                 found.Content = "after edit content";
                 found.Title = "after edit title";
-                await dbPostRepo.Edit(found);
+                await dbPostRepo.Edit(found, null);
 
                 found = await dbPostRepo.GetById(1);
 
@@ -274,8 +274,8 @@ namespace blog.api.test
                 postDB.Title = "title";
                 postDB.Status = PostStatus.None;
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB));
-                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB)).Message, "Post not found");
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB, null));
+                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB, null)).Message, "Post not found");
             }
         }
     }

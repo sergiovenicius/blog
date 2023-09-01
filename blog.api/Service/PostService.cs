@@ -28,9 +28,16 @@ namespace blog.common.Service
             return await _postRepository.List(status);
         }
 
-        public async Task<PostDB> GetById(long id)
+        public async Task<PostDB> GetById(long userId, long id)
         {
             var dbPost = await _postRepository.GetById(id);
+
+            if (dbPost.Comments.Any())
+            {
+                if (dbPost.OwnerId != userId)
+                    dbPost.Comments.RemoveAll(r => r.Type == CommentType.Reject);
+            }
+
             return dbPost;
         }
 
@@ -60,7 +67,7 @@ namespace blog.common.Service
 
             dbPost.Title = post.Title;
             dbPost.Content = post.Content;
-            dbPost = await _postRepository.Edit(dbPost);
+            dbPost = await _postRepository.Edit(dbPost, null);
 
             return dbPost;
         }
@@ -74,7 +81,7 @@ namespace blog.common.Service
                 throw new Exception($"Cannot submit this post as its status is {Enum.GetName(typeof(PostStatus), dbPost.Status)}.");
 
             dbPost.Status = PostStatus.Pending_Approval;
-            dbPost = await _postRepository.Edit(dbPost);
+            dbPost = await _postRepository.Edit(dbPost, null);
 
             return dbPost;
         }
@@ -88,8 +95,8 @@ namespace blog.common.Service
 
             var commentDB = _mapperCommentInputToDB.Map(comment);
             commentDB.PostId = postId;
-            dbPost.Comments.Add(commentDB);
-            await _postRepository.Edit(dbPost);
+
+            await _postRepository.Edit(dbPost, commentDB);
 
             return commentDB;
         }
@@ -103,7 +110,7 @@ namespace blog.common.Service
 
             dbPost.Status = PostStatus.Approved;
             dbPost.DatePublished = DateTime.UtcNow;
-            dbPost = await _postRepository.Edit(dbPost);
+            dbPost = await _postRepository.Edit(dbPost, null);
 
             return dbPost;
         }
@@ -124,9 +131,8 @@ namespace blog.common.Service
 
             commentDB.PostId = postId;
             commentDB.Type = CommentType.Reject;
-            dbPost.Comments.Add(commentDB);
 
-            dbPost = await _postRepository.Edit(dbPost);
+            dbPost = await _postRepository.Edit(dbPost, commentDB);
 
             return dbPost;
         }

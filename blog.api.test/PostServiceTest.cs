@@ -83,7 +83,7 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
 
-                var post = await svc.GetById(1);
+                var post = await svc.GetById(1, 1);
 
                 Assert.That(post.ID, Is.EqualTo(1));
                 Assert.That(post.Title, Is.EqualTo(input.Title));
@@ -102,7 +102,7 @@ namespace blog.api.test
 
                 PostService svc = new PostService(repo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetById(1));
+                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetById(1, 1));
             }
         }
 
@@ -191,13 +191,13 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
 
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
 
                 input.Content = "after edit content";
                 input.Title = "after edit title";
                 await svc.Edit(found.ID, input);
 
-                found = await svc.GetById(found.ID);
+                found = await svc.GetById(1, found.ID);
 
                 Assert.That(found.ID, Is.EqualTo(1));
                 Assert.That(found.Title, Is.EqualTo("after edit title"));
@@ -242,7 +242,7 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
 
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
 
                 await svc.Submit(found.ID);
 
@@ -252,7 +252,7 @@ namespace blog.api.test
                 input.Title = "after edit title";
                 await svc.Edit(found.ID, input);
 
-                found = await svc.GetById(found.ID);
+                found = await svc.GetById(1, found.ID);
 
                 Assert.That(found.ID, Is.EqualTo(1));
                 Assert.That(found.Title, Is.EqualTo("after edit title"));
@@ -280,7 +280,7 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
 
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
 
                 await svc.Submit(found.ID);
 
@@ -311,7 +311,7 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
 
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
 
                 await svc.Submit(found.ID);
 
@@ -339,7 +339,7 @@ namespace blog.api.test
 
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundNone = await svc.GetById(1);
+                var foundNone = await svc.GetById(1, 1);
 
                 Assert.ThrowsAsync<Exception>(async () => await svc.Approve(foundNone.ID));
                 Assert.IsTrue(Assert.ThrowsAsync<Exception>(async () => await svc.Approve(foundNone.ID)).Message.StartsWith("Cannot approve this post as its status is"));
@@ -359,7 +359,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundAlreadyApproved = await svc.GetById(1);
+                var foundAlreadyApproved = await svc.GetById(1, 1);
                 await svc.Submit(foundAlreadyApproved.ID);
                 await svc.Approve(foundAlreadyApproved.ID);
 
@@ -381,7 +381,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundRejected = await svc.GetById(1);
+                var foundRejected = await svc.GetById(1, 1);
                 await svc.Submit(foundRejected.ID);
                 await svc.Reject(foundRejected.ID, new CommentInput() { Content = "try-again" });
 
@@ -404,7 +404,7 @@ namespace blog.api.test
 
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundNone = await svc.GetById(1);
+                var foundNone = await svc.GetById(1, 1);
 
                 Assert.ThrowsAsync<Exception>(async () => await svc.Reject(foundNone.ID, new CommentInput() { Content = "try-again" }));
                 Assert.IsTrue(Assert.ThrowsAsync<Exception>(async () => await svc.Reject(foundNone.ID, new CommentInput() { Content = "try-again" })).Message.StartsWith("Cannot reject this post as its status is"));
@@ -424,7 +424,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundAlreadyApproved = await svc.GetById(1);
+                var foundAlreadyApproved = await svc.GetById(1, 1);
                 await svc.Submit(foundAlreadyApproved.ID);
                 await svc.Approve(foundAlreadyApproved.ID);
 
@@ -446,7 +446,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
                 await svc.Submit(found.ID);
 
                 Assert.ThrowsAsync<Exception>(async () => await svc.Reject(found.ID, new CommentInput() { Content = "" }));
@@ -467,7 +467,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var foundRejected = await svc.GetById(1);
+                var foundRejected = await svc.GetById(1, 1);
                 await svc.Submit(foundRejected.ID);
                 await svc.Reject(foundRejected.ID, new CommentInput() { Content = "try-again" });
 
@@ -489,14 +489,14 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
                 await svc.Submit(found.ID);
                 await svc.Approve(found.ID);
 
                 var comment1 = await svc.Comment(found.ID, new CommentInput() { Content = "nice" });
                 var comment2 = await svc.Comment(found.ID, new CommentInput() { Content = "great" });
 
-                found = await svc.GetById(1);
+                found = await svc.GetById(1, 1);
 
                 Assert.That(found.Comments.Count(), Is.EqualTo(2));
                 Assert.That(found.Comments.ElementAt(0).ID, Is.EqualTo(1));
@@ -526,7 +526,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
 
                 Assert.ThrowsAsync<Exception>(async () => await svc.Comment(found.ID, new CommentInput() { Content = "nice" }));
                 Assert.AreEqual("Cannot comment a post that is not published.", Assert.ThrowsAsync<Exception>(async () => await svc.Comment(found.ID, new CommentInput() { Content = "nice" })).Message);
@@ -547,7 +547,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
                 await svc.Submit(found.ID);
 
                 Assert.ThrowsAsync<Exception>(async () => await svc.Comment(found.ID, new CommentInput() { Content = "nice" }));
@@ -568,7 +568,7 @@ namespace blog.api.test
 
                 var input = new PostInput() { Title = "title test", Content = "content test" };
                 await svc.Add(input);
-                var found = await svc.GetById(1);
+                var found = await svc.GetById(1, 1);
                 await svc.Submit(found.ID);
                 await svc.Reject(found.ID, new CommentInput() { Content = "try-again" });
 

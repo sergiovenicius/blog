@@ -9,6 +9,6 @@ namespace blog.common.Repository
         Task<IEnumerable<PostDB>> ListByOwner(long ownerId);
 
         Task<PostDB> Add(PostDB post);
-        Task<PostDB> Edit(PostDB post);
+        Task<PostDB> Edit(PostDB post, CommentDB comment);
     }
 }

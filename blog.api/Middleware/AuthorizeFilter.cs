@@ -25,7 +25,7 @@ namespace blog.common.Middleware
                 var username = credentials[0];
                 var password = credentials[1];
 
-                IUserService userService = context.HttpContext.RequestServices.GetService(typeof(UserService)) as IUserService;
+                var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
 
                 var user = userService.Authenticate(username, password);
 

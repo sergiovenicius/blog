@@ -20,7 +20,7 @@ namespace blog.common.Repository
 
         public async Task<PostDB> GetById(long id)
         {
-            var post = await db.Posts.FindAsync(id);
+            var post = await db.Posts.AsNoTracking().Where(r => r.ID == id).Include(o => o.Comments).FirstOrDefaultAsync();
             if (post == null)
                 throw new NotFoundException("Post not found");
             return post;
@@ -34,9 +34,9 @@ namespace blog.common.Repository
 
             return newPost.Entity;
         }
-        public async Task<PostDB> Edit(PostDB post)
+        public async Task<PostDB> Edit(PostDB post, CommentDB comment)
         {
-            var existingPost = db.Posts.FirstOrDefault(r => r.ID == post.ID);
+            var existingPost = db.Posts.Where(r => r.ID == post.ID).Include(c => c.Comments).FirstOrDefault();
 
             if (existingPost == null)
                 throw new NotFoundException("Post not found");
@@ -44,6 +44,11 @@ namespace blog.common.Repository
             existingPost.Content = post.Content;
             existingPost.Title = post.Title;
             existingPost.Status = post.Status;
+            existingPost.DatePublished = post.DatePublished;
+            if (comment != null)
+            {
+                existingPost.Comments.Add(comment);
+            }
 
             await db.SaveChangesAsync(CancellationToken.None);
 

@@ -110,7 +110,7 @@ namespace blog.api.test
                 });
 
             var requestedServicesMock = new Mock<IServiceProvider>();
-            requestedServicesMock.Setup(s => s.GetService(typeof(UserService))).Returns(userService.Object);
+            requestedServicesMock.Setup(s => s.GetService(typeof(IUserService))).Returns(userService.Object);
 
             context.HttpContext.RequestServices = requestedServicesMock.Object;
 
@@ -162,7 +162,7 @@ namespace blog.api.test
             var currentUserScoped = new CurrentUser() { Id = 1 };
 
             var requestedServicesMock = new Mock<IServiceProvider>();
-            requestedServicesMock.Setup(s => s.GetService(typeof(UserService))).Returns(userService.Object);
+            requestedServicesMock.Setup(s => s.GetService(typeof(IUserService))).Returns(userService.Object);
             requestedServicesMock.Setup(s => s.GetService(typeof(CurrentUser))).Returns(currentUserScoped);
 
             context.HttpContext.RequestServices = requestedServicesMock.Object;
@@ -212,7 +212,7 @@ namespace blog.api.test
                 });
 
             var requestedServicesMock = new Mock<IServiceProvider>();
-            requestedServicesMock.Setup(s => s.GetService(typeof(UserService))).Returns(userService.Object);
+            requestedServicesMock.Setup(s => s.GetService(typeof(IUserService))).Returns(userService.Object);
 
             context.HttpContext.RequestServices = requestedServicesMock.Object;
 
@@ -253,7 +253,7 @@ namespace blog.api.test
             userService.Setup(s => s.Authenticate(It.IsAny<string>(), It.IsAny<string>())).Returns<User>(null);
 
             var requestedServicesMock = new Mock<IServiceProvider>();
-            requestedServicesMock.Setup(s => s.GetService(typeof(UserService))).Returns(userService.Object);
+            requestedServicesMock.Setup(s => s.GetService(typeof(IUserService))).Returns(userService.Object);
 
             context.HttpContext.RequestServices = requestedServicesMock.Object;
 
@@ -306,7 +306,7 @@ namespace blog.api.test
                 });
 
             var requestedServicesMock = new Mock<IServiceProvider>();
-            requestedServicesMock.Setup(s => s.GetService(typeof(UserService))).Returns(userService.Object);
+            requestedServicesMock.Setup(s => s.GetService(typeof(IUserService))).Returns(userService.Object);
 
             context.HttpContext.RequestServices = requestedServicesMock.Object;
 

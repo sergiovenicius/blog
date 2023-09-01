@@ -6,7 +6,7 @@ namespace blog.common.Service
     {
         Task<IEnumerable<PostDB>> List(PostStatus[] status);
 
-        Task<PostDB> GetById(long id);
+        Task<PostDB> GetById(long userId, long id);
 
         Task<IEnumerable<PostDB>> ListByOwner(long userId);
 

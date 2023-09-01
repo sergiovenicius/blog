@@ -64,7 +64,7 @@ namespace Blog.Controllers
         {
             try
             {
-                return Ok(await _postService.GetById(postId));
+                return Ok(await _postService.GetById(_currentUser.Id, postId));
             }
             catch (NotFoundException e)
             {
