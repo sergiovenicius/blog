@@ -6,12 +6,12 @@ sergiovenicius.chapeco@gmail.com
 # requirements
 - dot net 7
 - Visual Studio (Community) 2022
-- dotnet stryker (stryker mutator) -> https://stryker-mutator.io/docs/stryker-net/getting-started/
+- dotnet stryker 3.10 (stryker mutator) -> https://stryker-mutator.io/docs/stryker-net/getting-started/
 - k6.io (load tests) -> https://k6.io/docs/get-started/installation/
 
 # steps to build
-- clone the repository from here in your machine
-- open Blog.sln in your Visual Studio
+- clone the repository to your machine
+- open the solution "Blog.sln" in your Visual Studio
 - click to Build and Run
 
 # details about blog.api
