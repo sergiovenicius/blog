@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "4lKZnceM80LOMLnST0wxzc9LjUtbCewtgsKiwiTM51s=",
+  "Source": "blog.api",
+  "BasePath": "_content/blog.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

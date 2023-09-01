@@ -34,7 +34,7 @@ namespace blog.common.Repository
 
             return newPost.Entity;
         }
-        public async Task<PostDB> Edit(PostDB post, CommentDB comment)
+        public async Task<PostDB> Edit(PostDB post, CommentDB? comment)
         {
             var existingPost = db.Posts.Where(r => r.ID == post.ID).Include(c => c.Comments).FirstOrDefault();
 

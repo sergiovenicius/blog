@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "5lTSmvuVt0dWUBeRqKycgmRYCK+85gNi4ED7d0QO288RYZ0npdUc7hSvQepsogR5jVJAI/GInnIsmJjnOSkiDQ==",
+  "success": true,
+  "projectFilePath": "C:\\repo_mediamonk\\test5\\blog\\blog.ui\\blog.ui.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
+  ],
+  "logs": []
+}

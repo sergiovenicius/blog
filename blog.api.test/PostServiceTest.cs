@@ -576,5 +576,42 @@ namespace blog.api.test
 
             }
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task TestPostServiceShouldGetPostByIdWithOwnUser(bool ownUser)
+        {
+            using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options))
+            {
+                PostRepository repo = new PostRepository(dbcontext);
+
+                PostService svc = new PostService(repo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
+
+                PostInput input = new PostInput() { Title = "title test", Content = "content test" };
+                var post = await svc.Add(input);
+
+                await svc.Submit(post.ID);
+                await svc.Reject(post.ID, new CommentInput() { Content = "rejected" });
+                await svc.Submit(post.ID);
+                await svc.Approve(post.ID);
+                await svc.Comment(post.ID, new CommentInput() { Content = "ok" });
+                await svc.Comment(post.ID, new CommentInput() { Content = "ok2" });
+
+                post = await svc.GetById(ownUser ? 1 : 2, 1);
+
+                Assert.That(post.ID, Is.EqualTo(1));
+                Assert.That(post.Title, Is.EqualTo(input.Title));
+                Assert.That(post.Content, Is.EqualTo(input.Content));
+                Assert.That(post.Comments.Count(), Is.EqualTo(ownUser ? 3 : 2));
+                if (ownUser)
+                    Assert.IsTrue(post.Comments.Count(r => r.Type == CommentType.Reject) == 1);
+                else
+                    Assert.IsTrue(post.Comments.Count(r => r.Type != CommentType.Reject) == 2);
+            }
+        }
+
     }
 }
