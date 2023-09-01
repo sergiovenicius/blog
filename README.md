@@ -19,7 +19,7 @@ sergiovenicius.chapeco@gmail.com
 - the project "blog.api" was built using net 7;
 - it was configured to use inMemory database;
 - the code-coverage of the project is 100%. 
-- mutation tests analysis covered 90.10%
+- mutation tests analysis covered 87.80%
 - it is configured to run always at: http://localhost:5000
 - the swagger is fully documented, you can access it while in Debug at http://localhost:5000/swagger
 - the user apis doesn't require authentication
@@ -40,4 +40,4 @@ sergiovenicius.chapeco@gmail.com
 - the business rules were sent as .net technical test. It is basically: "Build a minimal Blog Engine / CMS backend API, that allows to create, edit and publish textbased posts, with an approval flow where two different user types may interact."
 
 # total hours worked
-17h
+20h
