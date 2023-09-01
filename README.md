@@ -1,4 +1,4 @@
-# blog api
+# blog project (api, ui and api.test)
 
 # contact
 sergiovenicius.chapeco@gmail.com
