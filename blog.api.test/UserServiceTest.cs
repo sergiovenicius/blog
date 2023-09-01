@@ -52,6 +52,37 @@ namespace blog.api.test
         }
 
         [Test]
+        public async Task TestUserServiceShouldAddUserWithoutRoleHappyPath()
+        {
+            using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options))
+            {
+                var dbPostRepo = new UserRepository(dbcontext);
+
+                UserService svc = new UserService(dbPostRepo);
+
+                await svc.Save(new User()
+                {
+                    Name = "user",
+                    Email = "any@email.com",
+                    Username = "newuser",
+                    Password = "pwd"
+                });
+
+                var user = await svc.GetById(1);
+
+                Assert.That(user.ID, Is.EqualTo(1));
+                Assert.That(user.Username, Is.EqualTo("newuser"));
+                Assert.That(user.Password, Is.EqualTo("pwd"));
+                Assert.That(user.Name, Is.EqualTo("user"));
+                Assert.That(user.Email, Is.EqualTo("any@email.com"));
+                Assert.That(user.Role.Count(), Is.EqualTo(1));
+                Assert.That(user.Role.ElementAt(0), Is.EqualTo(UserRole.Public));
+            }
+        }
+
+        [Test]
         public async Task TestUserServiceShouldGetUserByIdHappyPath()
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()

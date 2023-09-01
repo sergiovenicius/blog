@@ -25,6 +25,11 @@ namespace blog.common.Service
 
         public async Task<User> Save(User user)
         {
+            user.ID = 0;
+
+            if (user.Role.Count() == 0)
+                user.Role.Add(UserRole.Public);
+
             var dbUser = await _repository.Save(user);
             return dbUser;
         }
