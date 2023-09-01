@@ -5,6 +5,7 @@ sergiovenicius.chapeco@gmail.com
 
 # requirements
 - dot net 7
+- ef core 7
 - Visual Studio (Community) 2022
 - dotnet stryker 3.10 (stryker mutator) -> https://stryker-mutator.io/docs/stryker-net/getting-started/
 - k6.io (load tests) -> https://k6.io/docs/get-started/installation/
@@ -39,4 +40,4 @@ sergiovenicius.chapeco@gmail.com
 - the business rules were sent as .net technical test. It is basically: "Build a minimal Blog Engine / CMS backend API, that allows to create, edit and publish textbased posts, with an approval flow where two different user types may interact."
 
 # total hours worked
-16h
+17h
