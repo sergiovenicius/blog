@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@model blog.ui.Models.Post
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>You are logged as: @Accessor.HttpContext.Session.GetString("loggedUser")</p>
+
+    <table class="table table-striped table-hover table-bordered">
+
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Published</th>
+                <th scope="col">Author</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="td-vert-center">@Model.ID</td>
+                <td class="td-vert-center">@Model.DatePublished?.ToString()</td>
+                <td class="td-vert-center">@Model.Owner?.Name</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><b>@Model.Title</b></p>
+    <br />
+    <div>@Model.Content</div>
+    <br />
+    <p><b>Comments:</b></p>
+    <br />
+    <table class="table table-striped table-hover table-bordered">
+
+        <tbody>
+            @foreach (var xModel in Model.Comments)
+            {
+                <tr>
+                    <td class="td-vert-center">@xModel.Content</td>
+                    <td class="td-vert-center">@xModel.DatePublished</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

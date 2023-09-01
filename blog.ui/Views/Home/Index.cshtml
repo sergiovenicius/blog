@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@model IEnumerable<blog.ui.Models.Post>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>You are logged as: @Accessor.HttpContext.Session.GetString("loggedUser")</p>
+
+    <table class="table table-striped table-hover table-bordered">
+
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Published</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var xModel in Model)
+            {
+                <tr>
+                    <td class="td-vert-center">@xModel.Title</td>
+                    <td class="td-vert-center">@xModel.DatePublished</td>
+
+                    <td class="td-vert-center">@Html.ActionLink("Detail", "PostDetail", "Home", new { postId = xModel.ID }, new { @class = "btn btn-default" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

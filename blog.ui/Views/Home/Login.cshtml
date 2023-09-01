@@ -1,0 +1,66 @@
+﻿@model blog.ui.Models.User
+
+<p>You have 3 users available:</p>
+
+<table class="table table-striped table-hover table-bordered">
+
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Role</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>puser</td>
+            <td>puser</td>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>wuser</td>
+            <td>wuser</td>
+            <td>Writer</td>
+        </tr>
+        <tr>
+            <td>euser</td>
+            <td>euser</td>
+            <td>Editor</td>
+        </tr>
+    </tbody>
+</table>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    //cria a tag do formulário
+    @Html.AntiForgeryToken() // previne o ataque CSRF
+    @Html.ValidationSummary(true)
+    <div style="max-width: 400px;">
+        <h2 class="form-signin-heading">
+            Login
+        </h2>
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+        <div>
+            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error" })
+        </div>
+        <br />
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <div>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+        </div>
+        <br />
+        <input type="submit" value="Login" class="btn btn-primary" />
+        <br />
+        <br />
+        @if (ViewBag.Message != null && ViewBag.Message != "")
+        { 
+            <div id="dvMessage" class="alert alert-danger">
+                <strong>Error!</strong>
+                <span>@ViewBag.Message</span>
+            </div>
+        }
+    </div>
+}
