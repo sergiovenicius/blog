@@ -10,6 +10,9 @@ sergiovenicius.chapeco@gmail.com
 - dotnet stryker 3.10 (stryker mutator) -> https://stryker-mutator.io/docs/stryker-net/getting-started/
 - k6.io (load tests) -> https://k6.io/docs/get-started/installation/
 
+# architecture
+- you can load the architecture/blog-architecture.dsl file into https://structurizr.com/dsl to see context, container and component diagrams
+
 # steps to build
 - clone the repository to your machine
 - open the solution "Blog.sln" in your Visual Studio
@@ -49,8 +52,9 @@ sergiovenicius.chapeco@gmail.com
 # improvements
 - search and pagination
 - load tests
-- when rejecting a post, it's being required to post a comment
+- when rejecting a post, it's being required to post a comment along with
 - other features in the UI to interact with the api
+- exception specific classes
 
 # total hours worked
 20h
