@@ -4,22 +4,22 @@ namespace blog.common.Service
 {
     public interface IPostService
     {
-        Task<IEnumerable<PostDB>> List(PostStatus[] status);
+        Task<IEnumerable<PostDB>> ListAsync(PostStatus[] status);
 
-        Task<PostDB> GetById(long userId, long id);
+        Task<PostDB> GetByIdAsync(long userId, long id);
 
-        Task<IEnumerable<PostDB>> ListByOwner(long userId);
+        Task<IEnumerable<PostDB>> ListByOwnerAsync(long userId);
 
-        Task<PostDB> Add(PostInput post);
+        Task<PostDB> AddAsync(PostInput post);
 
-        Task<PostDB> Edit(long postId, PostInput post);
+        Task<PostDB> EditAsync(long postId, PostInput post);
 
-        Task<PostDB> Submit(long postId);
+        Task<PostDB> SubmitAsync(long postId);
 
-        Task<PostDB> Approve(long postId);
+        Task<PostDB> ApproveAsync(long postId);
 
-        Task<PostDB> Reject(long postId, CommentInput comment);
+        Task<PostDB> RejectAsync(long postId, CommentInput comment);
 
-        Task<CommentDB> Comment(long postId, CommentInput comment);
+        Task<CommentDB> CommentAsync(long postId, CommentInput comment);
     }
 }

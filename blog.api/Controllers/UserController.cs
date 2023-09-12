@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Blog.Controllers
 {
     [ApiController]
-    [Route("api/users")]
+    [Route("api/v1/users")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -24,11 +24,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpGet("")]
         [AuthorizeFilter, AllowAnonymousAttribute]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                return Ok(await _userService.List());
+                return Ok(await _userService.ListAsync());
             }
             catch (Exception e)
             {
@@ -42,11 +42,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpGet("id/{userId}")]
         [AuthorizeFilter, AllowAnonymousAttribute]
-        public async Task<IActionResult> GetById([FromRoute] long userId)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] long userId)
         {
             try
             {
-                return Ok(await _userService.GetById(userId));
+                return Ok(await _userService.GetByIdAsync(userId));
             }
             catch (NotFoundException e)
             {
@@ -64,11 +64,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpGet("username/{userName}")]
         [AuthorizeFilter, AllowAnonymousAttribute]
-        public async Task<IActionResult> GetByUserName([FromRoute] string username)
+        public async Task<IActionResult> GetByUserNameAsync([FromRoute] string username)
         {
             try
             {
-                return Ok(await _userService.GetByUsername(username));
+                return Ok(await _userService.GetByUsernameAsync(username));
             }
             catch (NotFoundException e)
             {
@@ -86,11 +86,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPost("")]
         [AuthorizeFilter, AllowAnonymousAttribute]
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<IActionResult> PostAsync([FromBody] User user)
         {
             try
             {
-                return Ok(await _userService.Save(user));
+                return Ok(await _userService.SaveAsync(user));
             }
             catch (Exception e)
             {

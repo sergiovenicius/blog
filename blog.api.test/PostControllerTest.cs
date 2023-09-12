@@ -48,11 +48,11 @@ namespace blog.api.test
 
                 var controller = new PostController(logger, svc, currentUserService);
 
-                await controller.Post(new PostInput() { Title = "title", Content = "content" });
-                await controller.Submit(1);
-                await controller.Approve(1);
+                await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
+                await controller.SubmitAsync(1);
+                await controller.ApproveAsync(1);
 
-                var response = await controller.Get();
+                var response = await controller.GetAsync();
 
                 var okResult = response as OkObjectResult;
 
@@ -76,7 +76,7 @@ namespace blog.api.test
             PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), currentUserService);
 
             var controller = new PostController(logger, svc, currentUserService);
-            var response = await controller.Get();
+            var response = await controller.GetAsync();
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -100,10 +100,10 @@ namespace blog.api.test
 
                 var controller = new PostController(logger, svc, currentUserService);
 
-                await controller.Post(new PostInput() { Title = "title", Content = "content" });
-                await controller.Submit(1);
+                await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
+                await controller.SubmitAsync(1);
 
-                var response = await controller.GetPendingPosts();
+                var response = await controller.GetPendingPostsAsync();
 
                 var okResult = response as OkObjectResult;
 
@@ -127,7 +127,7 @@ namespace blog.api.test
             PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), currentUserService);
 
             var controller = new PostController(logger, svc, currentUserService);
-            var response = await controller.GetPendingPosts();
+            var response = await controller.GetPendingPostsAsync();
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -150,7 +150,7 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.GetById(1);
+                var response = await controller.GetByIdAsync(1);
 
                 var result = response as NotFoundObjectResult;
 
@@ -171,7 +171,7 @@ namespace blog.api.test
             PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), currentUserService);
 
             var controller = new PostController(logger, svc, currentUserService);
-            var response = await controller.GetById(1);
+            var response = await controller.GetByIdAsync(1);
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -194,7 +194,7 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.GetByOwner();
+                var response = await controller.GetByOwnerAsync();
 
                 var result = response as NotFoundObjectResult;
 
@@ -215,7 +215,7 @@ namespace blog.api.test
             PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), currentUserService);
 
             var controller = new PostController(logger, svc, currentUserService);
-            var response = await controller.GetByOwner();
+            var response = await controller.GetByOwnerAsync();
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -238,7 +238,7 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
 
                 var result = response as OkObjectResult;
 
@@ -259,7 +259,7 @@ namespace blog.api.test
             PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), currentUserService);
 
             var controller = new PostController(logger, svc, currentUserService);
-            var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+            var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -282,12 +282,12 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                response = await controller.Edit(postCreated.ID, new PostInput() { Title = postCreated.Title, Content = "editted post" });
+                response = await controller.EditAsync(postCreated.ID, new PostInput() { Title = postCreated.Title, Content = "editted post" });
                 result = response as OkObjectResult;
 
                 // assert
@@ -310,12 +310,12 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                response = await controller.Edit(1000, new PostInput() { Title = postCreated.Title, Content = "editted post" });
+                response = await controller.EditAsync(1000, new PostInput() { Title = postCreated.Title, Content = "editted post" });
                 var result400 = response as BadRequestObjectResult;
 
                 // assert
@@ -338,12 +338,12 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                response = await controller.Submit(postCreated.ID);
+                response = await controller.SubmitAsync(postCreated.ID);
                 result = response as OkObjectResult;
 
                 // assert
@@ -366,14 +366,14 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                response = await controller.Approve(postCreated.ID);
+                response = await controller.ApproveAsync(postCreated.ID);
                 result = response as OkObjectResult;
 
                 // assert
@@ -396,14 +396,14 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                response = await controller.Reject(postCreated.ID, new CommentInput() { Content = "try-again" });
+                response = await controller.RejectAsync(postCreated.ID, new CommentInput() { Content = "try-again" });
                 result = response as OkObjectResult;
 
                 // assert
@@ -426,16 +426,16 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                await controller.Approve(postCreated.ID);
+                await controller.ApproveAsync(postCreated.ID);
 
-                response = await controller.Comment(postCreated.ID, new CommentInput() { Content = "nice post!" });
+                response = await controller.CommentAsync(postCreated.ID, new CommentInput() { Content = "nice post!" });
                 result = response as OkObjectResult;
 
                 // assert
@@ -463,10 +463,10 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
-                response = await controller.Submit(10000);
+                response = await controller.SubmitAsync(10000);
                 var result400 = response as BadRequestObjectResult;
 
                 // assert
@@ -489,14 +489,14 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                response = await controller.Approve(10000);
+                response = await controller.ApproveAsync(10000);
                 var result400 = response as BadRequestObjectResult;
 
                 // assert
@@ -519,14 +519,14 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                response = await controller.Reject(1000000, new CommentInput() { Content = "try-again" });
+                response = await controller.RejectAsync(1000000, new CommentInput() { Content = "try-again" });
                 var result400 = response as BadRequestObjectResult;
 
                 // assert
@@ -549,16 +549,16 @@ namespace blog.api.test
                 PostService svc = new PostService(dbPostRepo, new MapperCommentInputToCommentDB(), new MapperPostInputToPostDB(), new CurrentUser() { Id = 1 });
 
                 var controller = new PostController(logger, svc, currentUserService);
-                var response = await controller.Post(new PostInput() { Title = "title", Content = "content" });
+                var response = await controller.PostAsync(new PostInput() { Title = "title", Content = "content" });
                 var result = response as OkObjectResult;
 
                 var postCreated = result.Value as PostDB;
 
-                await controller.Submit(postCreated.ID);
+                await controller.SubmitAsync(postCreated.ID);
 
-                await controller.Approve(postCreated.ID);
+                await controller.ApproveAsync(postCreated.ID);
 
-                response = await controller.Comment(1000000, new CommentInput() { Content = "nice post!" });
+                response = await controller.CommentAsync(1000000, new CommentInput() { Content = "nice post!" });
                 var result400 = response as BadRequestObjectResult;
 
                 // assert

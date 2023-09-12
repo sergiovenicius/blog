@@ -11,7 +11,7 @@ namespace blog.ui.Services
         private readonly ILogger<BlogAPIService> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private User _currentUser;
-        private const string urlServiceBase = "http://localhost:5000";
+        private const string urlServiceBase = "http://localhost:5000/api/v1/";
 
         public BlogAPIService(ILogger<BlogAPIService> logger, IHttpClientFactory httpClientFactory)
         {
@@ -68,7 +68,7 @@ namespace blog.ui.Services
                 var wUserContent = JsonContent.Create<User>(userWriter, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
                 var eUserContent = JsonContent.Create<User>(userEditor, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
 
-                string urlService = urlServiceBase + "/api/users";
+                string urlService = urlServiceBase + "users";
 
                 await client.PostAsync(urlService, pUserContent);
                 await client.PostAsync(urlService, wUserContent);
@@ -80,7 +80,7 @@ namespace blog.ui.Services
         {
             using (var client = _httpClientFactory.CreateClient())
             {
-                string urlService = urlServiceBase + "/api/posts";
+                string urlService = urlServiceBase + "posts";
 
                 var httpRequestMessage = new HttpRequestMessage(
                     HttpMethod.Get,
@@ -88,7 +88,7 @@ namespace blog.ui.Services
                     {
                         Headers =
                         {
-                            { HeaderNames.Accept, "application/vnd.github.v3+json" },
+                            { HeaderNames.Accept, "application/json" },
                             { HeaderNames.Authorization, "Basic " +  GetBase64()}
                         }
                     };
@@ -114,7 +114,7 @@ namespace blog.ui.Services
         {
             using (var client = _httpClientFactory.CreateClient())
             {
-                string urlService = urlServiceBase + $"/api/posts/{postId}";
+                string urlService = urlServiceBase + $"posts/{postId}";
 
                 var httpRequestMessage = new HttpRequestMessage(
                     HttpMethod.Get,
@@ -122,7 +122,7 @@ namespace blog.ui.Services
                 {
                     Headers =
                         {
-                            { HeaderNames.Accept, "application/vnd.github.v3+json" },
+                            { HeaderNames.Accept, "application/json" },
                             { HeaderNames.Authorization, "Basic " +  GetBase64()}
                         }
                 };
@@ -138,7 +138,7 @@ namespace blog.ui.Services
 
                     var post = await JsonSerializer.DeserializeAsync<Post>(contentStream, options);
 
-                    urlService = urlServiceBase + $"/api/users/id/{post.OwnerId}";
+                    urlService = urlServiceBase + $"users/id/{post.OwnerId}";
 
                     var response = await client.GetAsync(urlService);
 

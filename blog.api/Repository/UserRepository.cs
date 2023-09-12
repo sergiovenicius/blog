@@ -13,12 +13,12 @@ namespace blog.common.Repository
             this.db = db;
         }
 
-        public async Task<IEnumerable<User>> List()
+        public async Task<IEnumerable<User>> ListAsync()
         {
             return await db.Users.ToListAsync();
         }
 
-        public async Task<User> GetById(long id)
+        public async Task<User> GetByIdAsync(long id)
         {
             var user = await db.Users.FindAsync(id);
             if (user == null)
@@ -27,7 +27,7 @@ namespace blog.common.Repository
         }
 
 
-        public async Task<User> Save(User user)
+        public async Task<User> SaveAsync(User user)
         {
             var newUser = await db.Users.AddAsync(user);
 
@@ -36,7 +36,7 @@ namespace blog.common.Repository
             return newUser.Entity;
         }
 
-        public async Task<User> GetByUserName(string username)
+        public async Task<User> GetByUserNameAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(r => r.Username == username);
             if (user == null)

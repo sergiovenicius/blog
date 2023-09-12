@@ -13,12 +13,12 @@ namespace blog.common.Repository
             this.db = db;
         }
 
-        public async Task<IEnumerable<PostDB>> List(PostStatus[] status)
+        public async Task<IEnumerable<PostDB>> ListAsync(PostStatus[] status)
         {
             return await db.Posts.AsNoTracking().Where(r => status.Contains(r.Status)).Include(o => o.Comments.Where(c => c.Type != CommentType.Reject)).ToListAsync();
         }
 
-        public async Task<PostDB> GetById(long id)
+        public async Task<PostDB> GetByIdAsync(long id)
         {
             var post = await db.Posts.AsNoTracking().Where(r => r.ID == id).Include(o => o.Comments).FirstOrDefaultAsync();
             if (post == null)
@@ -26,7 +26,7 @@ namespace blog.common.Repository
             return post;
         }
 
-        public async Task<PostDB> Add(PostDB post)
+        public async Task<PostDB> AddAsync(PostDB post)
         {
             var newPost = db.Posts.Add(post);
 
@@ -34,7 +34,7 @@ namespace blog.common.Repository
 
             return newPost.Entity;
         }
-        public async Task<PostDB> Edit(PostDB post, CommentDB? comment)
+        public async Task<PostDB> EditAsync(PostDB post, CommentDB? comment)
         {
             var existingPost = db.Posts.Where(r => r.ID == post.ID).Include(c => c.Comments).FirstOrDefault();
 
@@ -56,7 +56,7 @@ namespace blog.common.Repository
         }
 
 
-        public async Task<IEnumerable<PostDB>> ListByOwner(long ownerId)
+        public async Task<IEnumerable<PostDB>> ListByOwnerAsync(long ownerId)
         {
             var posts = await db.Posts.AsNoTracking().Where(r => r.OwnerId == ownerId).Include(p => p.Comments).ToListAsync();
             if (posts.Count == 0)

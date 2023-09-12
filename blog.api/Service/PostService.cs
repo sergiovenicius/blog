@@ -23,14 +23,14 @@ namespace blog.common.Service
             _currentUser = currentUser;
         }
 
-        public async Task<IEnumerable<PostDB>> List(PostStatus[] status)
+        public async Task<IEnumerable<PostDB>> ListAsync(PostStatus[] status)
         {
-            return await _postRepository.List(status);
+            return await _postRepository.ListAsync(status);
         }
 
-        public async Task<PostDB> GetById(long userId, long id)
+        public async Task<PostDB> GetByIdAsync(long userId, long id)
         {
-            var dbPost = await _postRepository.GetById(id);
+            var dbPost = await _postRepository.GetByIdAsync(id);
 
             if (dbPost.Comments.Any())
             {
@@ -41,25 +41,25 @@ namespace blog.common.Service
             return dbPost;
         }
 
-        public async Task<PostDB> Add(PostInput post)
+        public async Task<PostDB> AddAsync(PostInput post)
         {
             var postDB = _mapperPostInputToDB.Map(post);
             postDB.OwnerId = _currentUser.Id;
 
-            var dbPost = await _postRepository.Add(postDB);
+            var dbPost = await _postRepository.AddAsync(postDB);
             return dbPost;
         }
 
-        public async Task<IEnumerable<PostDB>> ListByOwner(long userId)
+        public async Task<IEnumerable<PostDB>> ListByOwnerAsync(long userId)
         {
-            var dbPost = await _postRepository.ListByOwner(userId);
+            var dbPost = await _postRepository.ListByOwnerAsync(userId);
 
             return dbPost;
         }
 
-        public async Task<PostDB> Edit(long postId, PostInput post)
+        public async Task<PostDB> EditAsync(long postId, PostInput post)
         {
-            var dbPost = await _postRepository.GetById(postId);
+            var dbPost = await _postRepository.GetByIdAsync(postId);
 
             if (dbPost.Status != PostStatus.Rejected
             && dbPost.Status != PostStatus.None)
@@ -67,28 +67,28 @@ namespace blog.common.Service
 
             dbPost.Title = post.Title;
             dbPost.Content = post.Content;
-            dbPost = await _postRepository.Edit(dbPost, null);
+            dbPost = await _postRepository.EditAsync(dbPost, null);
 
             return dbPost;
         }
 
-        public async Task<PostDB> Submit(long postId)
+        public async Task<PostDB> SubmitAsync(long postId)
         {
-            var dbPost = await _postRepository.GetById(postId);
+            var dbPost = await _postRepository.GetByIdAsync(postId);
 
             if (dbPost.Status != PostStatus.None
             && dbPost.Status != PostStatus.Rejected)
                 throw new Exception($"Cannot submit this post as its status is {Enum.GetName(typeof(PostStatus), dbPost.Status)}.");
 
             dbPost.Status = PostStatus.Pending_Approval;
-            dbPost = await _postRepository.Edit(dbPost, null);
+            dbPost = await _postRepository.EditAsync(dbPost, null);
 
             return dbPost;
         }
 
-        public async Task<CommentDB> Comment(long postId, CommentInput comment)
+        public async Task<CommentDB> CommentAsync(long postId, CommentInput comment)
         {
-            var dbPost = await _postRepository.GetById(postId);
+            var dbPost = await _postRepository.GetByIdAsync(postId);
 
             if (dbPost.Status != PostStatus.Approved)
                 throw new Exception("Cannot comment a post that is not published.");
@@ -96,28 +96,28 @@ namespace blog.common.Service
             var commentDB = _mapperCommentInputToDB.Map(comment);
             commentDB.PostId = postId;
 
-            await _postRepository.Edit(dbPost, commentDB);
+            await _postRepository.EditAsync(dbPost, commentDB);
 
             return commentDB;
         }
 
-        public async Task<PostDB> Approve(long postId)
+        public async Task<PostDB> ApproveAsync(long postId)
         {
-            var dbPost = await _postRepository.GetById(postId);
+            var dbPost = await _postRepository.GetByIdAsync(postId);
 
             if (dbPost.Status != PostStatus.Pending_Approval)
                 throw new Exception($"Cannot approve this post as its status is {Enum.GetName(typeof(PostStatus), dbPost.Status)}.");
 
             dbPost.Status = PostStatus.Approved;
             dbPost.DatePublished = DateTime.UtcNow;
-            dbPost = await _postRepository.Edit(dbPost, null);
+            dbPost = await _postRepository.EditAsync(dbPost, null);
 
             return dbPost;
         }
 
-        public async Task<PostDB> Reject(long postId, CommentInput comment)
+        public async Task<PostDB> RejectAsync(long postId, CommentInput comment)
         {
-            var dbPost = await _postRepository.GetById(postId);
+            var dbPost = await _postRepository.GetByIdAsync(postId);
 
             if (dbPost.Status != PostStatus.Pending_Approval)
                 throw new Exception($"Cannot reject this post as its status is {Enum.GetName(typeof(PostStatus), dbPost.Status)}.");
@@ -132,7 +132,7 @@ namespace blog.common.Service
             commentDB.PostId = postId;
             commentDB.Type = CommentType.Reject;
 
-            dbPost = await _postRepository.Edit(dbPost, commentDB);
+            dbPost = await _postRepository.EditAsync(dbPost, commentDB);
 
             return dbPost;
         }

@@ -4,11 +4,11 @@ namespace blog.common.Repository
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> List();
-        Task<User> GetById(long id);
-        Task<User> GetByUserName(string username);
+        Task<IEnumerable<User>> ListAsync();
+        Task<User> GetByIdAsync(long id);
+        Task<User> GetByUserNameAsync(string username);
 
-        Task<User> Save(User user);
+        Task<User> SaveAsync(User user);
 
         User? Authenticate(string username, string password);
     }

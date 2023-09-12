@@ -35,7 +35,7 @@ namespace blog.api.test
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
 
-                var savedPost = await dbPostRepo.Add(postDB);
+                var savedPost = await dbPostRepo.AddAsync(postDB);
 
                 Assert.That(savedPost.ID, Is.EqualTo(1));
                 Assert.That(savedPost.Title, Is.EqualTo(input.Title));
@@ -68,7 +68,7 @@ namespace blog.api.test
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
 
-                Assert.ThrowsAsync<ValidationException>(async () => await dbPostRepo.Add(postDB));
+                Assert.ThrowsAsync<ValidationException>(async () => await dbPostRepo.AddAsync(postDB));
             }
         }
 
@@ -88,19 +88,19 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 input = new PostInput() { Title = "title test 2", Content = "content test 2" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 input = new PostInput() { Title = "title test 3", Content = "content test 3" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
-                IEnumerable<PostDB> found = await dbPostRepo.List(new PostStatus[] { PostStatus.None } );
+                IEnumerable<PostDB> found = await dbPostRepo.ListAsync(new PostStatus[] { PostStatus.None } );
 
                 Assert.That(found.Count(), Is.EqualTo(3));
                 Assert.That(found.ElementAt(0).ID, Is.EqualTo(1));
@@ -125,19 +125,19 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 input = new PostInput() { Title = "title test 2", Content = "content test 2" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 input = new PostInput() { Title = "title test 3", Content = "content test 3" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
-                var found = await dbPostRepo.GetById(2);
+                var found = await dbPostRepo.GetByIdAsync(2);
 
                 Assert.That(found.ID, Is.EqualTo(2));
                 Assert.That(found.Title, Is.EqualTo("title test 2"));
@@ -158,8 +158,8 @@ namespace blog.api.test
             {
                 var dbPostRepo = new PostRepository(dbcontext);
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetById(0));
-                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetById(0)).Message, "Post not found");
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetByIdAsync(0));
+                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetByIdAsync(0)).Message, "Post not found");
             }
         }
 
@@ -179,23 +179,23 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test - user 1", Content = "content test" };
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 currentUser.Id = 2;
 
                 input = new PostInput() { Title = "title test 2 another user", Content = "content test 2" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
                 currentUser.Id = 1;
 
                 input = new PostInput() { Title = "title test 3 - user 1", Content = "content test 3" };
                 postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
-                var found = await dbPostRepo.ListByOwner(currentUser.Id);
+                var found = await dbPostRepo.ListByOwnerAsync(currentUser.Id);
 
                 Assert.That(found.Count(), Is.EqualTo(2));
                 Assert.That(found.ElementAt(0).ID, Is.EqualTo(1));
@@ -214,8 +214,8 @@ namespace blog.api.test
 
                 IMapper<PostDB, PostInput> mapper = new MapperPostInputToPostDB();
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.ListByOwner(1));
-                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.ListByOwner(1)).Message, "No posts found");
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.ListByOwnerAsync(1));
+                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.ListByOwnerAsync(1)).Message, "No posts found");
             }
         }
 
@@ -235,15 +235,15 @@ namespace blog.api.test
                 PostInput input = new PostInput() { Title = "title test", Content = "content test" };
                 PostDB postDB = mapper.Map(input);
                 postDB.OwnerId = currentUser.Id;
-                await dbPostRepo.Add(postDB);
+                await dbPostRepo.AddAsync(postDB);
 
-                var found = await dbPostRepo.GetById(1);
+                var found = await dbPostRepo.GetByIdAsync(1);
 
                 found.Content = "after edit content";
                 found.Title = "after edit title";
-                await dbPostRepo.Edit(found, null);
+                await dbPostRepo.EditAsync(found, null);
 
-                found = await dbPostRepo.GetById(1);
+                found = await dbPostRepo.GetByIdAsync(1);
 
                 Assert.That(found.ID, Is.EqualTo(1));
                 Assert.That(found.Title, Is.EqualTo("after edit title"));
@@ -274,8 +274,8 @@ namespace blog.api.test
                 postDB.Title = "title";
                 postDB.Status = PostStatus.None;
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB, null));
-                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.Edit(postDB, null)).Message, "Post not found");
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.EditAsync(postDB, null));
+                Assert.AreEqual(Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.EditAsync(postDB, null)).Message, "Post not found");
             }
         }
     }

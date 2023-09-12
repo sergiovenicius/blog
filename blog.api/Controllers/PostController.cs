@@ -9,7 +9,7 @@ namespace Blog.Controllers
 {
     [ApiController]
     [AuthorizeFilter]
-    [Route("api/posts")]
+    [Route("api/v1/posts")]
     public class PostController : ControllerBase
     {
         private readonly ILogger<PostController> _logger;
@@ -27,11 +27,11 @@ namespace Blog.Controllers
         /// List all published Posts
         /// </summary>
         [HttpGet("")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                return Ok(await _postService.List(new PostStatus[] { PostStatus.Approved }));
+                return Ok(await _postService.ListAsync(new PostStatus[] { PostStatus.Approved }));
             }
             catch (Exception e)
             {
@@ -44,11 +44,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpGet("pending")]
         [HasPermission(UserRole.Editor)]
-        public async Task<IActionResult> GetPendingPosts()
+        public async Task<IActionResult> GetPendingPostsAsync()
         {
             try
             {
-                return Ok(await _postService.List(new PostStatus[] { PostStatus.Pending_Approval }));
+                return Ok(await _postService.ListAsync(new PostStatus[] { PostStatus.Pending_Approval }));
             }
             catch (Exception e)
             {
@@ -60,11 +60,11 @@ namespace Blog.Controllers
         /// Get a Post by id
         /// </summary>
         [HttpGet("{postId}")]
-        public async Task<IActionResult> GetById([FromRoute] long postId)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] long postId)
         {
             try
             {
-                return Ok(await _postService.GetById(_currentUser.Id, postId));
+                return Ok(await _postService.GetByIdAsync(_currentUser.Id, postId));
             }
             catch (NotFoundException e)
             {
@@ -82,11 +82,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpGet("mine")]
         [HasPermission(UserRole.Writer)]
-        public async Task<IActionResult> GetByOwner()
+        public async Task<IActionResult> GetByOwnerAsync()
         {
             try
             {
-                return Ok(await _postService.ListByOwner(_currentUser.Id));
+                return Ok(await _postService.ListByOwnerAsync(_currentUser.Id));
             }
             catch (NotFoundException e)
             {
@@ -104,11 +104,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPost("")]
         [HasPermission(UserRole.Writer)]
-        public async Task<IActionResult> Post([FromBody] PostInput post)
+        public async Task<IActionResult> PostAsync([FromBody] PostInput post)
         {
             try
             {
-                return Ok(await _postService.Add(post));
+                return Ok(await _postService.AddAsync(post));
             }
             catch (Exception e)
             {
@@ -121,11 +121,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPut("{postId}")]
         [HasPermission(UserRole.Writer)]
-        public async Task<IActionResult> Edit([FromRoute] long postId, [FromBody] PostInput post)
+        public async Task<IActionResult> EditAsync([FromRoute] long postId, [FromBody] PostInput post)
         {
             try
             {
-                return Ok(await _postService.Edit(postId, post));
+                return Ok(await _postService.EditAsync(postId, post));
             }
             catch (Exception e)
             {
@@ -138,11 +138,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPatch("submit/{postId}")]
         [HasPermission(UserRole.Writer)]
-        public async Task<IActionResult> Submit([FromRoute] long postId)
+        public async Task<IActionResult> SubmitAsync([FromRoute] long postId)
         {
             try
             {
-                return Ok(await _postService.Submit(postId));
+                return Ok(await _postService.SubmitAsync(postId));
             }
             catch (Exception e)
             {
@@ -155,11 +155,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPatch("approve/{postId}")]
         [HasPermission(UserRole.Editor)]
-        public async Task<IActionResult> Approve([FromRoute] long postId)
+        public async Task<IActionResult> ApproveAsync([FromRoute] long postId)
         {
             try
             {
-                return Ok(await _postService.Approve(postId));
+                return Ok(await _postService.ApproveAsync(postId));
             }
             catch (Exception e)
             {
@@ -172,11 +172,11 @@ namespace Blog.Controllers
         /// </summary>
         [HttpPatch("reject/{postId}")]
         [HasPermission(UserRole.Editor)]
-        public async Task<IActionResult> Reject([FromRoute] long postId, [FromBody] CommentInput comment)
+        public async Task<IActionResult> RejectAsync([FromRoute] long postId, [FromBody] CommentInput comment)
         {
             try
             {
-                return Ok(await _postService.Reject(postId, comment));
+                return Ok(await _postService.RejectAsync(postId, comment));
             }
             catch (Exception e)
             {
@@ -188,11 +188,11 @@ namespace Blog.Controllers
         /// Add a comment to a published Post
         /// </summary>
         [HttpPost("comment/{postId}")]
-        public async Task<IActionResult> Comment([FromRoute] long postId, [FromBody] CommentInput comment)
+        public async Task<IActionResult> CommentAsync([FromRoute] long postId, [FromBody] CommentInput comment)
         {
             try
             {
-                return Ok(await _postService.Comment(postId, comment));
+                return Ok(await _postService.CommentAsync(postId, comment));
             }
             catch (Exception e)
             {

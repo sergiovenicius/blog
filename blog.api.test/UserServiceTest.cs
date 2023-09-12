@@ -30,8 +30,8 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetById(0));
-                Assert.IsTrue(Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetById(0)).Message.StartsWith("User not found"));
+                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByIdAsync(0));
+                Assert.IsTrue(Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByIdAsync(0)).Message.StartsWith("User not found"));
             }
         }
 
@@ -46,8 +46,8 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByUsername("test"));
-                Assert.IsTrue(Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByUsername("test")).Message.StartsWith("User not found"));
+                Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByUsernameAsync("test"));
+                Assert.IsTrue(Assert.ThrowsAsync<NotFoundException>(async () => await svc.GetByUsernameAsync("test")).Message.StartsWith("User not found"));
             }
         }
 
@@ -62,7 +62,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -70,7 +70,7 @@ namespace blog.api.test
                     Password = "pwd"
                 });
 
-                var user = await svc.GetById(1);
+                var user = await svc.GetByIdAsync(1);
 
                 Assert.That(user.ID, Is.EqualTo(1));
                 Assert.That(user.Username, Is.EqualTo("newuser"));
@@ -93,7 +93,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -102,7 +102,7 @@ namespace blog.api.test
                     Role = new List<UserRole>() { UserRole.Public, UserRole.Writer, UserRole.Editor }
                 });
 
-                var user = await svc.GetById(1);
+                var user = await svc.GetByIdAsync(1);
 
                 Assert.That(user.ID, Is.EqualTo(1));
                 Assert.That(user.Username, Is.EqualTo("newuser"));
@@ -124,7 +124,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -133,7 +133,7 @@ namespace blog.api.test
                     Role = new List<UserRole>() { UserRole.Public, UserRole.Writer, UserRole.Editor }
                 });
 
-                var user = await svc.GetByUsername("newuser");
+                var user = await svc.GetByUsernameAsync("newuser");
 
                 Assert.That(user.ID, Is.EqualTo(1));
                 Assert.That(user.Username, Is.EqualTo("newuser"));
@@ -155,7 +155,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -186,7 +186,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -214,7 +214,7 @@ namespace blog.api.test
 
                 UserService svc = new UserService(dbPostRepo);
 
-                await svc.Save(new User()
+                await svc.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -223,7 +223,7 @@ namespace blog.api.test
                     Role = new List<UserRole>() { UserRole.Writer }
                 });
 
-                var user = await svc.GetByUsername("newuser");
+                var user = await svc.GetByUsernameAsync("newuser");
 
                 var whichRole = UserRole.Editor;
                 if (hasRole)

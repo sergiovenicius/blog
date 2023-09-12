@@ -4,13 +4,13 @@ namespace blog.common.Service
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> List();
+        Task<IEnumerable<User>> ListAsync();
 
-        Task<User> GetById(long id);
+        Task<User> GetByIdAsync(long id);
 
-        Task<User> GetByUsername(string username);
+        Task<User> GetByUsernameAsync(string username);
 
-        Task<User> Save(User User);
+        Task<User> SaveAsync(User User);
 
         Task<bool> HasRole(long userId, UserRole role);
 

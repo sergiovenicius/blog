@@ -37,7 +37,7 @@ namespace blog.api.test
                 UserService svc = new UserService(dbuserRepo);
 
                 var controller = new UserController(logger, svc);
-                var response = await controller.Get();
+                var response = await controller.GetAsync();
 
                 var okResult = response as OkObjectResult;
 
@@ -58,7 +58,7 @@ namespace blog.api.test
             UserService svc = new UserService(dbuserRepo);
 
             var controller = new UserController(logger, svc);
-            var response = await controller.Get();
+            var response = await controller.GetAsync();
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -82,7 +82,7 @@ namespace blog.api.test
                 UserService svc = new UserService(dbuserRepo);
 
                 var controller = new UserController(logger, svc);
-                var response = await controller.GetById(1);
+                var response = await controller.GetByIdAsync(1);
 
                 var result = response as NotFoundObjectResult;
 
@@ -103,7 +103,7 @@ namespace blog.api.test
             UserService svc = new UserService(dbuserRepo);
 
             var controller = new UserController(logger, svc);
-            var response = await controller.GetById(1);
+            var response = await controller.GetByIdAsync(1);
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -127,7 +127,7 @@ namespace blog.api.test
                 UserService svc = new UserService(dbuserRepo);
 
                 var controller = new UserController(logger, svc);
-                var response = await controller.GetByUserName("user_test");
+                var response = await controller.GetByUserNameAsync("user_test");
 
                 var result = response as NotFoundObjectResult;
 
@@ -148,7 +148,7 @@ namespace blog.api.test
             UserService svc = new UserService(dbuserRepo);
 
             var controller = new UserController(logger, svc);
-            var response = await controller.GetByUserName("user_test");
+            var response = await controller.GetByUserNameAsync("user_test");
 
             var badRequestResult = response as BadRequestObjectResult;
 
@@ -171,7 +171,7 @@ namespace blog.api.test
                 UserService svc = new UserService(dbuserRepo);
 
                 var controller = new UserController(logger, svc);
-                var response = await controller.Post(new User() 
+                var response = await controller.PostAsync(new User() 
                 { 
                     Name = "user", Email = "any@email.com", Username = "newuser", Password = "pwd", 
                     Role = new List<UserRole>() { UserRole.Public, UserRole.Writer, UserRole.Editor }
@@ -196,7 +196,7 @@ namespace blog.api.test
             UserService svc = new UserService(dbuserRepo);
 
             var controller = new UserController(logger, svc);
-            var response = await controller.Post(new User()
+            var response = await controller.PostAsync(new User()
             {
                 Name = "user",
                 Email = "any@email.com",

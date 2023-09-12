@@ -26,7 +26,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetById(0));
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetByIdAsync(0));
             }
         }
 
@@ -39,7 +39,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetByUserName("test"));
+                Assert.ThrowsAsync<NotFoundException>(async () => await dbPostRepo.GetByUserNameAsync("test"));
             }
         }
 
@@ -52,7 +52,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                await dbPostRepo.Save(new User()
+                await dbPostRepo.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -61,7 +61,7 @@ namespace blog.api.test
                     Role = new List<UserRole>() { UserRole.Public, UserRole.Writer, UserRole.Editor }
                 });
 
-                var user = await dbPostRepo.GetById(1);
+                var user = await dbPostRepo.GetByIdAsync(1);
 
                 Assert.That(user.ID, Is.EqualTo(1));
                 Assert.That(user.Username, Is.EqualTo("newuser"));
@@ -81,7 +81,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                await dbPostRepo.Save(new User()
+                await dbPostRepo.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -90,7 +90,7 @@ namespace blog.api.test
                     Role = new List<UserRole>() { UserRole.Public, UserRole.Writer, UserRole.Editor }
                 });
 
-                var user = await dbPostRepo.GetByUserName("newuser");
+                var user = await dbPostRepo.GetByUserNameAsync("newuser");
 
                 Assert.That(user.ID, Is.EqualTo(1));
                 Assert.That(user.Username, Is.EqualTo("newuser"));
@@ -110,7 +110,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                await dbPostRepo.Save(new User()
+                await dbPostRepo.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",
@@ -139,7 +139,7 @@ namespace blog.api.test
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
-                await dbPostRepo.Save(new User()
+                await dbPostRepo.SaveAsync(new User()
                 {
                     Name = "user",
                     Email = "any@email.com",

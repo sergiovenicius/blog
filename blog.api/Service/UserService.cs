@@ -12,37 +12,37 @@ namespace blog.common.Service
             _repository = repository;
         }
 
-        public async Task<IEnumerable<User>> List()
+        public async Task<IEnumerable<User>> ListAsync()
         {
-            return await _repository.List();
+            return await _repository.ListAsync();
         }
 
-        public async Task<User> GetById(long id)
+        public async Task<User> GetByIdAsync(long id)
         {
-            var dbUser = await _repository.GetById(id);
+            var dbUser = await _repository.GetByIdAsync(id);
             return dbUser;
         }
 
-        public async Task<User> Save(User user)
+        public async Task<User> SaveAsync(User user)
         {
             user.ID = 0;
 
             if (user.Role.Count() == 0)
                 user.Role.Add(UserRole.Public);
 
-            var dbUser = await _repository.Save(user);
+            var dbUser = await _repository.SaveAsync(user);
             return dbUser;
         }
 
-        public async Task<User> GetByUsername(string username)
+        public async Task<User> GetByUsernameAsync(string username)
         {
-            var dbUser = await _repository.GetByUserName(username);
+            var dbUser = await _repository.GetByUserNameAsync(username);
             return dbUser;
         }
 
         public async Task<bool> HasRole(long userId, UserRole role)
         {
-            var user = await GetById(userId);
+            var user = await GetByIdAsync(userId);
 
             return user.Role.Contains(role);
         }
