@@ -53,6 +53,15 @@ public static class Program
 
         });
 
+        builder.Services.ConfigureSwaggerGen(setup =>
+        {
+            setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "Blog API",
+                Version = "v1"
+            });
+        });
+
         builder.Services.AddDbContext<DBContextBlog>(o => o.UseInMemoryDatabase("blog"));// UseMySQL("server=localhost;database=blog;user=admin;password=admin"));
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -71,21 +80,19 @@ public static class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         app.UseCors();
+
+        app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
 
-        app.Run("http://0.0.0.0:5000");
+        app.Run();
 
     }
 }
