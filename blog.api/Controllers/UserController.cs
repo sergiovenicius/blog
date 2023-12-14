@@ -38,7 +38,7 @@ namespace Blog.Controllers
         }
 
         /// <summary>
-        /// Get a User by id
+        /// Get a User by Id
         /// </summary>
         [HttpGet("id/{userId}")]
         [AuthorizeFilter, AllowAnonymousAttribute]
