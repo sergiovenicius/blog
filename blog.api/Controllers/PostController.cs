@@ -4,6 +4,9 @@ using blog.common.Model;
 using blog.common.Service;
 using Microsoft.AspNetCore.Mvc;
 using blog.api.Model;
+using MediatR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using blog.api.Repository;
 
 namespace Blog.Controllers
 {
@@ -15,13 +18,16 @@ namespace Blog.Controllers
         private readonly ILogger<PostController> _logger;
         private readonly IPostService _postService;
         private readonly CurrentUser _currentUser;
-
-        public PostController(ILogger<PostController> logger, IPostService postService, CurrentUser currentUser)
+        private ISender? _mediator;
+        
+        public PostController(ILogger<PostController> logger, IPostService postService, CurrentUser currentUser, ISender sender = null)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _postService = postService ?? throw new ArgumentNullException(nameof(postService));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+            _mediator = sender ?? throw new ArgumentNullException(nameof(sender));
         }
+        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
         /// <summary>
         /// List all published Posts
@@ -108,7 +114,9 @@ namespace Blog.Controllers
         {
             try
             {
-                return Ok(await _postService.AddAsync(post));
+                var newPost = new CreatePostCommand() { Post = post };
+
+                return Ok(await Mediator.Send(newPost));
             }
             catch (Exception e)
             {

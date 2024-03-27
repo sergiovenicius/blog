@@ -41,15 +41,6 @@ namespace blog.common.Service
             return dbPost;
         }
 
-        public async Task<PostDB> AddAsync(PostInput post)
-        {
-            var postDB = _mapperPostInputToDB.Map(post);
-            postDB.OwnerId = _currentUser.Id;
-
-            var dbPost = await _postRepository.AddAsync(postDB);
-            return dbPost;
-        }
-
         public async Task<IEnumerable<PostDB>> ListByOwnerAsync(long userId)
         {
             var dbPost = await _postRepository.ListByOwnerAsync(userId);

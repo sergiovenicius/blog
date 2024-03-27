@@ -5,9 +5,11 @@ using blog.common.Model;
 using blog.common.Repository;
 using blog.common.Service;
 using Blog.Controllers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 
 namespace blog.api.test
 {
@@ -17,7 +19,7 @@ namespace blog.api.test
         public void Initialize()
         {
             var logger = new NullLogger<UserController>();
-            var UserService = new UserService(new UserRepository(new DBContextBlog(new Microsoft.EntityFrameworkCore.DbContextOptions<DBContextBlog>())));
+            var UserService = new UserService(new UserRepository(new DBContextBlog(new Microsoft.EntityFrameworkCore.DbContextOptions<DBContextBlog>(), new Mock<IMediator>().Object)));
 
             Assert.AreEqual("userService", Assert.Throws<ArgumentNullException>(() => new UserController(logger, null)).ParamName);
             Assert.AreEqual("logger", Assert.Throws<ArgumentNullException>(() => new UserController(null, UserService)).ParamName);
@@ -30,7 +32,7 @@ namespace blog.api.test
             var currentUserService = new CurrentUser();
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                            .Options))
+                            .Options, new Mock<IMediator>().Object))
             {
                 var dbuserRepo = new UserRepository(dbcontext);
 
@@ -75,7 +77,7 @@ namespace blog.api.test
             var currentUserService = new CurrentUser();
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                            .Options))
+                            .Options, new Mock<IMediator>().Object))
             {
                 var dbuserRepo = new UserRepository(dbcontext);
 
@@ -120,7 +122,7 @@ namespace blog.api.test
             var currentUserService = new CurrentUser();
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                            .Options))
+                            .Options, new Mock<IMediator>().Object))
             {
                 var dbuserRepo = new UserRepository(dbcontext);
 
@@ -164,7 +166,7 @@ namespace blog.api.test
             var currentUserService = new CurrentUser();
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                            .Options))
+                            .Options, new Mock<IMediator>().Object))
             {
                 var dbuserRepo = new UserRepository(dbcontext);
 

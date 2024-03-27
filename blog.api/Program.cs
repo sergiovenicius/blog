@@ -4,6 +4,7 @@ using blog.common.Database;
 using blog.common.Model;
 using blog.common.Repository;
 using blog.common.Service;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
@@ -74,6 +75,10 @@ public static class Program
         builder.Services.AddScoped<IMapper<CommentDB, CommentInput>, MapperCommentInputToCommentDB>();
 
         builder.Services.AddScoped<CurrentUser>();
+
+        builder.Services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
 
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication();

@@ -5,7 +5,9 @@ using blog.common.Exceptions;
 using blog.common.Model;
 using blog.common.Repository;
 using blog.common.Service;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,7 +26,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -40,7 +42,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -56,7 +58,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -87,7 +89,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -118,7 +120,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -149,7 +151,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -180,7 +182,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 
@@ -208,7 +210,7 @@ namespace blog.api.test
         {
             using (var dbcontext = new DBContextBlog(new DbContextOptionsBuilder<DBContextBlog>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options))
+                .Options, new Mock<IMediator>().Object))
             {
                 var dbPostRepo = new UserRepository(dbcontext);
 

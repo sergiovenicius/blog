@@ -1,4 +1,5 @@
 ﻿using blog.common.Model;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -7,9 +8,12 @@ namespace blog.common.Database
 {
     public class DBContextBlog : DbContext
     {
-        public DBContextBlog(DbContextOptions<DBContextBlog> options)
+        private readonly IMediator _mediator;
+
+        public DBContextBlog(DbContextOptions<DBContextBlog> options, IMediator mediator)
             : base(options)
         {
+            _mediator = mediator;
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -75,6 +79,8 @@ namespace blog.common.Database
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
+            await _mediator.DispatchDomainEvents(this);
+
             var entities = from e in ChangeTracker.Entries()
                            where e.State == EntityState.Added
                                || e.State == EntityState.Modified

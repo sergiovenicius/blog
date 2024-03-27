@@ -8,7 +8,6 @@ namespace blog.common.Repository
         Task<PostDB> GetByIdAsync(long id);
         Task<IEnumerable<PostDB>> ListByOwnerAsync(long ownerId);
 
-        Task<PostDB> AddAsync(PostDB post);
         Task<PostDB> EditAsync(PostDB post, CommentDB? comment);
     }
 }
