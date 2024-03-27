@@ -3,6 +3,10 @@
 # contact
 sergiovenicius.chapeco@gmail.com
 
+# business rules
+- the business rules were sent as .net technical test. It is basically: "Build a minimal Blog Engine / CMS backend API, that allows to create, edit and publish textbased posts, with an approval flow where two different user types may interact."
+- the business requirements are described here: https://github.com/sergiovenicius/blog/blob/main/NET_Test.pdf
+
 # requirements
 - dot net 7
 - ef core 7
@@ -47,10 +51,6 @@ sergiovenicius.chapeco@gmail.com
   - if you are a Writer, you can add new posts, list your own posts, and also submit them, for example;
   - if you are an Editor, you can list pending posts, approve, reject other posts, for example;
   - if you are public, you can list all published posts and get a post by its ID, for example;
-
-# business rules
-- the business rules were sent as .net technical test. It is basically: "Build a minimal Blog Engine / CMS backend API, that allows to create, edit and publish textbased posts, with an approval flow where two different user types may interact."
-- the business requirements are described here: https://github.com/sergiovenicius/blog/blob/main/NET_Test.pdf
 
 # improvements
 - search and pagination
