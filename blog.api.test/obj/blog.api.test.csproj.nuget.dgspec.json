@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repo_mediamonk\\test5\\blog\\blog.api.test\\blog.api.test.csproj": {}
+    "C:\\repos\\repo_mediamonk\\blog\\blog.api.test\\blog.api.test.csproj": {}
   },
   "projects": {
-    "C:\\repo_mediamonk\\test5\\blog\\blog.api.test\\blog.api.test.csproj": {
+    "C:\\repos\\repo_mediamonk\\blog\\blog.api.test\\blog.api.test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repo_mediamonk\\test5\\blog\\blog.api.test\\blog.api.test.csproj",
+        "projectUniqueName": "C:\\repos\\repo_mediamonk\\blog\\blog.api.test\\blog.api.test.csproj",
         "projectName": "blog.api.test",
-        "projectPath": "C:\\repo_mediamonk\\test5\\blog\\blog.api.test\\blog.api.test.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\repo_mediamonk\\test5\\blog\\blog.api.test\\obj\\",
+        "projectPath": "C:\\repos\\repo_mediamonk\\blog\\blog.api.test\\blog.api.test.csproj",
+        "packagesPath": "C:\\Users\\svanin\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\repo_mediamonk\\blog\\blog.api.test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\svanin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -23,17 +23,17 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/mcflow-dotnet-commonlib-nuget-release": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/mcflow-dotnet-sdk-nuget-release": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/nuget-gmaorchestration-private": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/nuget-virtual": {}
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/mcflow-dotnet-commonlib-nuget-release/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/mcflow-dotnet-sdk-nuget-release/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/nuget-release-local-local/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/nuget-release-local/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\repo_mediamonk\\test5\\blog\\blog.api\\blog.api.csproj": {
-                "projectPath": "C:\\repo_mediamonk\\test5\\blog\\blog.api\\blog.api.csproj"
+              "C:\\repos\\repo_mediamonk\\blog\\blog.api\\blog.api.csproj": {
+                "projectPath": "C:\\repos\\repo_mediamonk\\blog\\blog.api\\blog.api.csproj"
               }
             }
           }
@@ -89,21 +89,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\repo_mediamonk\\test5\\blog\\blog.api\\blog.api.csproj": {
+    "C:\\repos\\repo_mediamonk\\blog\\blog.api\\blog.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repo_mediamonk\\test5\\blog\\blog.api\\blog.api.csproj",
+        "projectUniqueName": "C:\\repos\\repo_mediamonk\\blog\\blog.api\\blog.api.csproj",
         "projectName": "blog.api",
-        "projectPath": "C:\\repo_mediamonk\\test5\\blog\\blog.api\\blog.api.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\repo_mediamonk\\test5\\blog\\blog.api\\obj\\",
+        "projectPath": "C:\\repos\\repo_mediamonk\\blog\\blog.api\\blog.api.csproj",
+        "packagesPath": "C:\\Users\\svanin\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\repo_mediamonk\\blog\\blog.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\svanin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -112,10 +112,10 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/mcflow-dotnet-commonlib-nuget-release": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/mcflow-dotnet-sdk-nuget-release": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/nuget-gmaorchestration-private": {},
-          "https://artifactory.sharedtools.vet-tools.digitalecp.mcd.com/artifactory/api/nuget/nuget-virtual": {}
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/mcflow-dotnet-commonlib-nuget-release/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/mcflow-dotnet-sdk-nuget-release/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/nuget-release-local-local/index.json": {},
+          "https://mcd.jfrog.io/artifactory/api/nuget/v3/nuget-release-local/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -133,6 +133,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.10, )"
@@ -147,7 +151,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
@@ -169,7 +173,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

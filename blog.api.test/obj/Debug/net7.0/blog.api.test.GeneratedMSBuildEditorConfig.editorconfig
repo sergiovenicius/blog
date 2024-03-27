@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = blog.api.test
-build_property.ProjectDir = C:\repo_mediamonk\test5\blog\blog.api.test\
+build_property.ProjectDir = C:\repos\repo_mediamonk\blog\blog.api.test\

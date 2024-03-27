@@ -11,7 +11,7 @@ namespace blog.ui.Services
         private readonly ILogger<BlogAPIService> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private User _currentUser;
-        private const string urlServiceBase = "http://localhost:5000/api/v1/";
+        private const string urlServiceBase = "http://localhost:5146/api/v1/";
 
         public BlogAPIService(ILogger<BlogAPIService> logger, IHttpClientFactory httpClientFactory)
         {

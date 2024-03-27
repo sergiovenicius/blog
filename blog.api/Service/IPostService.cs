@@ -10,8 +10,6 @@ namespace blog.common.Service
 
         Task<IEnumerable<PostDB>> ListByOwnerAsync(long userId);
 
-        Task<PostDB> AddAsync(PostInput post);
-
         Task<PostDB> EditAsync(long postId, PostInput post);
 
         Task<PostDB> SubmitAsync(long postId);
